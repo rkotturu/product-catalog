@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh '''
                     docker build --no-cache -t product-catalog-image:latest .
-                    docker tag product-catalog-image:latest akmaharshi.azurecr.io/akmaharshi/product-catalog-image:v${BUILD_NUMBER}
+                    docker tag product-catalog-image:latest rohitregistry.azurecr.io/rohitrepo/product-catalog-image:v$BUILD_NUMBER
                 '''
             }
         }
@@ -32,8 +32,8 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh '''
-                    docker login --username akmaharshi --password mSXyt1/KhhbTccusEdrI3uW/3cPjNwK4 akmaharshi.azurecr.io
-                    docker push akmaharshi.azurecr.io/akmaharshi/product-catalog-image:v${BUILD_NUMBER}
+                    docker login --username RohitRegistry --password gth5/4XYQ97TKb5UWPtBPVJ9h6vLxeHb rohitregistry.azurecr.io
+                    docker push rohitregistry.azurecr.io/rohitrepo/product-catalog-image:v$BUILD_NUMBER
                 '''
             }
         }
@@ -50,13 +50,4 @@ pipeline {
             notify('success')
         }
     }    
-}
-
-def notify(status){
-    emailext (
-    to: "devops.kphb@gmail.com",
-    subject: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-    body: """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME}  [${env.BUILD_NUMBER}]</a></p>""",
-    )
 }
