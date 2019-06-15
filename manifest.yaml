@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: product
-        image: akmaharshi.azurecr.io/akmaharshi/product-catalog-image:v${BUILD_NUMBER}
+        image: rohitregistry.azurecr.io/rohitrepo/product-catalog-image:v${BUILD_NUMBER}
         ports:
         - containerPort: 8282
